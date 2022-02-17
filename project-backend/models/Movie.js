@@ -1,7 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
     const model = sequelize.define('Movie',{
-        name: {
+        movieName: {
             type: DataTypes.STRING(200),
+            allowNull: false,
             unique: true
         },
         details: {
@@ -10,11 +11,16 @@ module.exports = (sequelize, DataTypes) => {
         rating: {
             type: DataTypes.INTEGER,
         },
-        picture: {
+        img: {
             type: DataTypes.STRING(255),
         },
         type: {
             type: DataTypes.STRING(100),
+            allowNull: false,
+            defaultValue: 'MOVIE',
+            validator: {
+              isIn: [['MOVIE','SERIES']]
+            },
         },
         season: {
             type: DataTypes.INTEGER,
@@ -22,18 +28,45 @@ module.exports = (sequelize, DataTypes) => {
 
 
     },{
+        underscored: true,
         tableName: 'movie',
-        timestamps: false
+        
     }); 
 
     model.associate = models =>{
-        model.belongsTo(models.Producer,{foreignkey: 'producer_id'})
-        model.hasMany(models.List, { foreignkey: 'movie_id' })
-        model.hasMany(models.Comment, { foreignkey: 'movie_id' })
-
-        model.belongsToMany(models.Actor,{through: models.Movie_actor,foreignkey: 'movie_id'})
-        model.belongsToMany(models.Streaming,{through: models.Movie_streaming,foreignkey: 'movie_id'})
-        model.belongsToMany(models.Genre,{through: models.Movie_genre,foreignkey: 'movie_id'})
+        model.belongsTo(models.Producer,{
+            foreignkey: {
+                name:'producerId'
+            }
+        })
+        model.hasMany(models.List, { 
+            foreignkey: {
+                name:'movieId'
+            } 
+        })
+        model.hasMany(models.Comment, { 
+            foreignkey: {
+                name:'movieId'
+            } 
+        })
+        model.belongsToMany(models.Actor,{
+            through: models.Movie_actor,
+            foreignkey: {
+                name:'movieId'
+            }
+        })
+        model.belongsToMany(models.Streaming,{
+            through: models.Movie_streaming,
+            foreignkey: {
+                name:'movieId'
+            }
+        })
+        model.belongsToMany(models.Genre,{
+            through: models.Movie_genre,
+            foreignkey: {
+                name:'movieId'
+            }
+        })
 
     };
     return model

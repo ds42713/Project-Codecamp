@@ -2,19 +2,28 @@ module.exports = (sequelize, DataTypes) => {
     const model = sequelize.define('Comment',{
         title: {
             type: DataTypes.STRING(200),
-            
-        },
-        comment: {
-            type: DataTypes.STRING(200),
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            } 
             
         },
 
     },{
+        underscored: true,
         tableName: 'comment',
     }); 
     model.associate = models =>{
-        model.belongsTo(models.Movie,{foreignkey: 'comment_id'})
-        model.belongsTo(models.User,{foreignkey: 'comment_id'})
+        model.belongsTo(models.Movie,{
+            foreignkey: {
+                name:'commentId'
+            }
+        })
+        model.belongsTo(models.User,{ 
+            foreignkey: {
+                name:'commentId'
+            }
+        })
     
     };
 

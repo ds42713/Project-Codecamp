@@ -1,16 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
     const model = sequelize.define('Producer',{
-        name: {
+        producerName: {
             type: DataTypes.STRING(200),
         },
 
     },{
+        underscored: true,
         tableName: 'producer',
         timestamps: false
     }); 
 
     model.associate = models =>{
-        model.hasMany(models.Movie, { foreignkey: 'producer_id' })
+        model.hasMany(models.Movie, { 
+            foreignkey: {
+                name:'producerId'
+            } 
+        })
     
     };
 
