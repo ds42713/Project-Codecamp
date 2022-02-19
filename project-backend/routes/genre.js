@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const userContollers = require('../controllers/genre');
+const genreContollers = require('../controllers/genreController');
 
-const passport = require('passport')
-const authentication = passport.authenticate('jwt' , {session:false}) // 'jwt' มาจาก passport.use("jwt",JWTStrategy) ใน config/passport/passport
+const authenticate = require('../middlewares/authenticate')
 
-router.get('/',userContollers.getGenre)
-router.get('/:id',userContollers.getGenreID)
-
+router.get('/', genreContollers.getGenreAll)
+router.get('/:id', genreContollers.getGenreId)
+router.post('/', authenticate, genreContollers.createGenre);
 
 module.exports = router;

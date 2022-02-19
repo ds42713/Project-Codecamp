@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
         actorName: {
             type: DataTypes.STRING(200),
         },
+        actorImg: {
+            type: DataTypes.STRING(255),
+        },
 
     },{
         tableName: 'actor',

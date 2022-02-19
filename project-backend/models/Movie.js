@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         rating: {
             type: DataTypes.INTEGER,
         },
-        img: {
+        movieImg: {
             type: DataTypes.STRING(255),
         },
         type: {

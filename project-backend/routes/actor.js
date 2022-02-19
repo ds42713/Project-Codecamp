@@ -1,11 +1,12 @@
 const express = require('express');
+const userContollers = require('../controllers/actorController');
+const authenticate = require('../middlewares/authenticate')
+
+
 const router = express.Router();
-const userContollers = require('../controllers/actor');
 
-const passport = require('passport')
-const authentication = passport.authenticate('jwt' , {session:false}) // 'jwt' มาจาก passport.use("jwt",JWTStrategy) ใน config/passport/passport
-
-router.get('/:id',userContollers.getActor)
-router.post('/', userContollers.addActor);
+router.get('/',userContollers.getActorAll)
+router.get('/:id',userContollers.getActorId)
+router.post('/',authenticate, userContollers.createActor);
 
 module.exports = router;

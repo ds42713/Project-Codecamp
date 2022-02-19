@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
         streamingName: {
             type: DataTypes.STRING(200),
             unique: true
+        },        
+        streamingImg: {
+            type: DataTypes.STRING(255),
         },
 
     },{

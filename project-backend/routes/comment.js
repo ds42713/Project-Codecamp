@@ -1,11 +1,10 @@
 const express = require('express');
+const commentContollers = require('../controllers/commentController');
+const authenticate = require('../middlewares/authenticate')
+
 const router = express.Router();
-const commentContollers = require('../controllers/comment');
 
-const passport = require('passport')
-const authentication = passport.authenticate('jwt' , {session:false}) // 'jwt' มาจาก passport.use("jwt",JWTStrategy) ใน config/passport/passport
-
-
-router.post('/', commentContollers.addComment);
+router.post('/', authenticate, commentContollers.createComment);
+router.delete('/', authenticate, commentContollers.deleteComment)
 
 module.exports = router;

@@ -16,6 +16,20 @@ module.exports = (sequelize, DataTypes) => {
             validator: {
                 isIn: [['ADMIN','USER']]
             },
+        },      
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validator: {
+              notEmpty: true
+            }
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validator: {
+              notEmpty: true
+            }
         },
 
     },{
