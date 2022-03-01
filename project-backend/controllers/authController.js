@@ -59,7 +59,15 @@ const login =  async (req,res,next) => {
     }
 }
 
+const getUser = async (req,res,next) => {
+    const { id, firstName, lastName } = req.user;
+    res.status(200).json({
+        user: { id, firstName, lastName 
+    }});
+}
+
 module.exports = {
     register,
-    login
+    login,
+    getUser
 }

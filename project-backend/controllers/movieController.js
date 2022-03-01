@@ -34,8 +34,9 @@ const getMovieId = async (req, res, next) => {
 
 const createMovie = async (req, res, next) => {
     try{
-
-        const { movieName, details, rating, type, season, producerId, actorId, genreId, streamingId } = req.body
+        console.log(req.body)
+        const { movieName, details, rating, type, season, actorId, genreId, streamingId } = req.body
+        const { producerId } = req.body
 
         // if (!req.user.type == 'USER' ){
         //     return res.status(404).json({message: 'cannot create movie'})
@@ -46,28 +47,32 @@ const createMovie = async (req, res, next) => {
         //     return res.status(404).json({message: 'have movie'})
         // }
 
+        console.log("---------------------------")
+        console.log(producerId)
+        console.log("---------------------------")
         const createMovie = await Movie.create({
             movieName: movieName,
             details: details,
             rating: rating,
             type: type,
             season: season,
-            producer_id: parseInt(producerId)
+            producer_id: 1
         })
 
-        if(actorId){
-            const IdActor = actorId.split(',')
-            for ( id of IdActor) {
-                const idactor = await Actor.findOne({where:{id: id}})
-                console.log("---------------------------")
-                console.log(idactor.id)
-                console.log(createMovie.id)
-                await Movie_actor.create({
-                    actor_id: '1',
-                    movieId: createMovie.id
-                })
-            }
-        }
+      //  if(actorId){
+       //     const IdActor = actorId.split(',')
+           // for ( id of IdActor) {
+                // const idactor = await Actor.findOne({where:{id: actorId}})
+                // console.log("---------------------------")
+                // console.log(actorId) //1
+                // console.log(createMovie.id) //7++
+
+                // await Movie_actor.create({
+                //     actorId: 1,
+                //     movieId: createMovie.id
+                // })
+           // }
+       // }
 
         // for ( id of idGenre){
         //     await Movie_genre.create({

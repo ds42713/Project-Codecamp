@@ -1,14 +1,15 @@
+import { useContext, useEffect, useRef } from "react";
+import { ErrorContext } from "./contexts/ErrorContext";
+import RouteConfig from "./routes/RouteConfig";
+
 function App() {
-  return (
-    <div>    
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <button class="bg-indigo-500 ...">
-      Save changes
-    </button>
-    </div>
-  );
+    const { error } = useContext(ErrorContext)
+
+    return (
+        <div>
+            <RouteConfig />
+        </div>
+    );
 }
 
 export default App;
