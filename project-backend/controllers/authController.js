@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const register = async (req,res,next) => {
     try {
-        const { firstName, lastName, username, password, confirmPassword} = req.body
+        const { name, username, password, confirmPassword} = req.body
         if (password !== confirmPassword){
             return res.status(400).json({ message: 'password and confirm password did not match'})
         }
@@ -18,8 +18,7 @@ const register = async (req,res,next) => {
             const hashedPassword = bcryptjs.hashSync(password, salt)
 
             await User.create({
-                firstName: firstName,
-                lastName: lastName,
+                name: name,
                 username: username,
                 password: hashedPassword,
                 role: 'USER'
@@ -46,7 +45,7 @@ const login =  async (req,res,next) => {
         }
         const payload = { 
             id: user.id, 
-            firstName: user.firstName
+            namee: user.name
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
             expiresIn: 60 * 60 * 24 * 30
@@ -60,9 +59,9 @@ const login =  async (req,res,next) => {
 }
 
 const getUser = async (req,res,next) => {
-    const { id, firstName, lastName } = req.user;
+    const { id, name } = req.user;
     res.status(200).json({
-        user: { id, firstName, lastName 
+        user: { id, name 
     }});
 }
 

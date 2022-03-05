@@ -2,13 +2,34 @@ const {Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_gen
 
 const getMovieAll = async (req, res, next) => {
     try {
-        const movie = await Movie.findAll({include:[Genre,Streaming,Producer,Actor,Comment]})
+        const movie = await Movie.findAll({
+            include:[
+                {
+                    model: Producer ,
+                    attributes: ['producerName']
+                },
+                {
+                    model: Genre ,
+                    attributes: ['genreName']
+                },
+                {
+                    model: Streaming ,
+                    attributes: ['streamingName','streamingImg']
+                },
+                {
+                    model: Actor ,
+                    attributes: ['actorName']
+                },
+                {
+                    model: Comment ,
+                    attributes: ['title', "createdAt"]
+                },
+            ]})
 
         if(!movie){
             return res.status(400).json({message:'no movie'})
         }
-
-        res.status(200).json(movie)
+        res.status(200).json({movie})
 
     } catch(err) {
         next(err)
@@ -35,8 +56,9 @@ const getMovieId = async (req, res, next) => {
 const createMovie = async (req, res, next) => {
     try{
         console.log(req.body)
-        const { movieName, details, rating, type, season, actorId, genreId, streamingId } = req.body
+        const { movieName, details, rating, type, season, movieImg, movieImgPoster, actorId, genreId, streamingId } = req.body
         const { producerId } = req.body
+        
 
         // if (!req.user.type == 'USER' ){
         //     return res.status(404).json({message: 'cannot create movie'})
@@ -55,8 +77,10 @@ const createMovie = async (req, res, next) => {
             details: details,
             rating: rating,
             type: type,
+            movieImg: movieImg,
+            movieImgPoster: movieImgPoster,
             season: season,
-            producer_id: 1
+            producerId: producerId
         })
 
       //  if(actorId){
@@ -87,7 +111,7 @@ const createMovie = async (req, res, next) => {
         //     })
         // }
  
-        res.status(201).json()
+        res.status(201).json({createMovie})
 
     } catch(err) {
         next(err)

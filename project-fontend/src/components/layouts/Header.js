@@ -52,9 +52,9 @@ function Header() {
             </Link>
 
           </nav>
-          <div className='px-2'> {user.firstName} </div>
-          <button class="px-4 py-2 mt-2 text-sm font-semibold text-white bg-blue-600 transition duration-500 ease-in-out transform bg-transparent rounded-lg dark:text-gray-300 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" onClick={()=> logout()} >
-            Log Out
+          
+          <button class="px-4 py-2 mt-2 text-sm font-semibold text-white bg-[#e80003] transition duration-500 ease-in-out transform bg-transparent rounded-lg dark:text-gray-300 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" onClick={()=> logout()} >
+          {user.name} Log Out
           </button>
         </div>
       </div>

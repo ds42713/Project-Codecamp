@@ -6,12 +6,15 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         details: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(3000),
         },
         rating: {
             type: DataTypes.INTEGER,
         },
         movieImg: {
+            type: DataTypes.STRING(255),
+        },
+        movieImgPoster: {
             type: DataTypes.STRING(255),
         },
         type: {

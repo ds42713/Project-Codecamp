@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ErrorContextProvider from './contexts/ErrorContext';
 import AuthContextProvider from './contexts/AuthContext';
 
+
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
