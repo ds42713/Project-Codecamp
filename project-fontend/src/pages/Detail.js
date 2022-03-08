@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import axios from '../../config/axios'
-import MovieList from './MovieList';
-import MoviePost from '../layouts/MoviePost';
+import { useParams } from 'react-router-dom';
+import axios from '../config/axios'
 
-import { Modal, Button } from 'antd';
+function Detail() {
 
-function MovieHome() {
+    let { movieId } = useParams()
     const [movie, setMovie] = useState([])
     
     const fetchMovie = async ()=> {
         try{
-            const res = await axios.get('/movies')
+            const res = await axios.get(`/movies/${movieId}`)
             console.log(res.data.movie)
             setMovie(res.data.movie)
         }catch(err){
@@ -22,11 +21,11 @@ function MovieHome() {
         fetchMovie()
     }, [])
     
-    return (
-        <>
-        <MovieList movie={movie}   />
-        </>
-    )
+  return (
+    <div>
+        Detail {movieId} {movie.movieName}
+    </div>
+  )
 }
 
-export default MovieHome
+export default Detail

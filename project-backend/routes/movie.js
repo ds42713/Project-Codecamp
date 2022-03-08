@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const userContollers = require('../controllers/movieController');
+const movieContollers = require('../controllers/movieController');
 
 const authenticate = require('../middlewares/authenticate')
 
-router.get('/', userContollers.getMovieAll);
-router.get('/:id', userContollers.getMovieId);
-router.post('/', userContollers.createMovie);
+router.get('/', authenticate, movieContollers.getMovieAll);
+router.get('/:id',authenticate, movieContollers.getMovieId);
+router.post('/',authenticate, movieContollers.createMovie);
 
 
 

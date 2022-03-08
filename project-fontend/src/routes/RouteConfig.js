@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Home from '../pages/Home';
 import List from '../pages/List'
+import Detail from '../pages/Detail';
 import { AuthContext } from '../contexts/AuthContext'
 import MainLayout from '../components/layouts/MainLayout';
 
@@ -18,6 +19,8 @@ export default function RouteConfig() {
 			<Route path='/' element={<MainLayout/>} >
 				<Route path='' element={<Home/>} />
 				<Route path='mylist' element={<List/>} />
+				<Route path='movie/:movieId' element={<Detail/>} />
+				{/* <Route path="*" element={<Navigate to="/" />} /> */}
 			</Route>
 		) : (
 			<Route path='/'>

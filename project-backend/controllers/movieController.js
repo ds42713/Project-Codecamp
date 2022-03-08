@@ -1,4 +1,5 @@
-const {Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_genre, Movie_streaming} = require('../models')
+const { listen } = require('express/lib/application');
+const {Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_genre, Movie_streaming, List} = require('../models')
 
 const getMovieAll = async (req, res, next) => {
     try {
@@ -24,6 +25,10 @@ const getMovieAll = async (req, res, next) => {
                     model: Comment ,
                     attributes: ['title', "createdAt"]
                 },
+                {
+                    model: List,
+                    attributes: ['UserId']
+                }
             ]})
 
         if(!movie){
@@ -39,18 +44,18 @@ const getMovieAll = async (req, res, next) => {
 const getMovieId = async (req, res, next) => {
     try {
         const movieId = Number(req.params.id);
-        const targetMovie = await Movie.findOne({where:{id:movieId},include:[Genre,Streaming,Producer,Actor,Comment]})
+        const movie = await Movie.findOne(
+            {where:{id:movieId},
+            include:[Genre,Streaming,Producer,Actor,Comment]})
         
-        if(!targetMovie){
+        if(!movie){
             return res.status(400).json({message:'no movie'})
         }
 
-        res.status(200).json(targetMovie)
+        res.status(200).json({movie})
     } catch(err) {
         next(err)
     }
-
-    
 }
 
 const createMovie = async (req, res, next) => {

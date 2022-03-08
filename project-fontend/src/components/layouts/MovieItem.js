@@ -6,14 +6,7 @@ import MoviePost from './MoviePost';
 
 export default function MovieItem({ movie }) {
     const { user } = useContext(AuthContext)
-    const [producer, setProducer] = useState("no producer")
     const [showModal, setShowModal] = useState(false);
-    useEffect(() => {
-        if (movie.Producer) {
-            setProducer(movie.Producer)
-        }
-    }, [])
-
 
     return (
 
@@ -28,7 +21,7 @@ export default function MovieItem({ movie }) {
                 </div>
             </div>
 
-            {showModal ? (  <MoviePost setShowModal={setShowModal} movie={movie} /> ) : null}
+            {showModal ? (  <MoviePost setShowModal={setShowModal} movie={movie} key={movie.id} /> ) : null}
 
 
         </>
