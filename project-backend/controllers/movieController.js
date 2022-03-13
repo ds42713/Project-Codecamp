@@ -1,5 +1,5 @@
 const { listen } = require('express/lib/application');
-const {Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_genre, Movie_streaming, List} = require('../models')
+const {User, Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_genre, Movie_streaming, List} = require('../models')
 
 const getMovieAll = async (req, res, next) => {
     try {
@@ -44,9 +44,24 @@ const getMovieAll = async (req, res, next) => {
 const getMovieId = async (req, res, next) => {
     try {
         const movieId = Number(req.params.id);
-        const movie = await Movie.findOne(
-            {where:{id:movieId},
-            include:[Genre,Streaming,Producer,Actor,Comment]})
+        const movie = await Movie.findOne({
+            
+            where:{id:movieId},
+            include:[
+                Genre,
+                Streaming,
+                Producer,
+                Actor,
+                {
+                    model: Comment,
+                    include: {
+                      model: User,
+                      attributes: ['name']
+                    }
+                }
+            ]
+            
+            })
         
         if(!movie){
             return res.status(400).json({message:'no movie'})
@@ -64,6 +79,7 @@ const createMovie = async (req, res, next) => {
         const { movieName, details, rating, type, season, movieImg, movieImgPoster, actorId, genreId, streamingId } = req.body
         const { producerId } = req.body
         
+        const acId = Number(actorId)
 
         // if (!req.user.type == 'USER' ){
         //     return res.status(404).json({message: 'cannot create movie'})
@@ -76,7 +92,9 @@ const createMovie = async (req, res, next) => {
 
         console.log("---------------------------")
         console.log(producerId)
+        console.log(Number(producerId))
         console.log("---------------------------")
+
         const createMovie = await Movie.create({
             movieName: movieName,
             details: details,
@@ -85,8 +103,21 @@ const createMovie = async (req, res, next) => {
             movieImg: movieImg,
             movieImgPoster: movieImgPoster,
             season: season,
-            producerId: producerId
+            producerId: Number(producerId)  // ไม่ขึ้น
         })
+
+        console.log(createMovie)
+        console.log('+++++++++++++++++++++++++++++')
+        console.log(createMovie.dataValues.id)
+        console.log(createMovie.id)
+        console.log('+++++++++++++++++++++++++++++')
+        console.log(typeof(actorId))
+
+
+        const idActor = await Movie_actor.create({
+            movieId: createMovie.dataValues.id,
+            actorId: acId
+        }) 
 
       //  if(actorId){
        //     const IdActor = actorId.split(',')

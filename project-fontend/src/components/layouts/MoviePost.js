@@ -55,7 +55,7 @@ function MoviePost({ setShowModal, movie }) {
     );
   }
   // อันนี้คือ นำออกใน list
-  function ButtonDelateFavorite({}) {
+  function ButtonDelateFavorite({deleteList}) {
     return (
       <button  className=' bg-red-700 border-2 border-red-700 text-white  font-bold uppercase text-sm px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex flex-row' onClick={deleteList} >
         favorite

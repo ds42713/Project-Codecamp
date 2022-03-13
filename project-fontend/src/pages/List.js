@@ -1,8 +1,10 @@
 import React from 'react'
-
+import ListHome from '../components/list/ListHome'
 function List() {
   return (
-    <div>List</div>
+    <div>
+      <ListHome />
+    </div>
   )
 }
 

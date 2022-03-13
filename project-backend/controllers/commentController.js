@@ -1,4 +1,5 @@
-const {Comment, Movie } = require('../models')
+const { includes } = require('lodash')
+const {Comment, Movie, User } = require('../models')
 
 
 const createComment = async (req,res) => {
@@ -12,7 +13,17 @@ const createComment = async (req,res) => {
         MovieId: movieId,
         UserId: req.user.id
     })
-    res.status(201).json(newComment)
+
+    const comment = await Comment.findOne({
+        where: { id : newComment.id },
+        include: {
+            model: User,
+            attributes: ['name']
+        }
+    })
+
+
+    res.status(201).json(comment)
 }
 
 const deleteComment = async (req,res,next) => {

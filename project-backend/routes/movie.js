@@ -6,7 +6,7 @@ const authenticate = require('../middlewares/authenticate')
 
 router.get('/', authenticate, movieContollers.getMovieAll);
 router.get('/:id',authenticate, movieContollers.getMovieId);
-router.post('/',authenticate, movieContollers.createMovie);
+router.post('/', movieContollers.createMovie);
 
 
 

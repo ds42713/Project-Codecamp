@@ -20,7 +20,8 @@ export default function RouteConfig() {
 				<Route path='' element={<Home/>} />
 				<Route path='mylist' element={<List/>} />
 				<Route path='movie/:movieId' element={<Detail/>} />
-				{/* <Route path="*" element={<Navigate to="/" />} /> */}
+				<Route path='mylist/movie/:movieId' element={<Detail/>} />
+				
 			</Route>
 		) : (
 			<Route path='/'>

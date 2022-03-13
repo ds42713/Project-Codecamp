@@ -7,7 +7,7 @@ const authenticate = require('../middlewares/authenticate')
 router.post('/', authenticate, listContollers.createList);
 router.get('/:movieId', authenticate, listContollers.getListID);
 router.delete('/:movieId', authenticate, listContollers.deleteList)
-
+router.get('/',authenticate, listContollers.getListAll )
 
 
 module.exports = router;

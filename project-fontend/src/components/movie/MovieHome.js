@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../config/axios'
 import MovieList from './MovieList';
-import MoviePost from '../layouts/MoviePost';
-
-import { Modal, Button } from 'antd';
 
 function MovieHome() {
     const [movie, setMovie] = useState([])
@@ -24,7 +21,7 @@ function MovieHome() {
     
     return (
         <>
-        <MovieList movie={movie}   />
+        <MovieList movie={movie}  />
         </>
     )
 }
