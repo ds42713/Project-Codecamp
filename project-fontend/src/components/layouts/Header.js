@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import axios from '../../config/axios';
@@ -7,6 +7,11 @@ function Header() {
 
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const { logout, user } = useContext(AuthContext);
+
+  let admin = []
+  if(user.role == 'ADMIN') {
+    admin = <Link to="/admin/movie" className="mr-6 hover:text-white"><div> Add movie </div></Link>
+  }
 
   return (
     <header class="text-white body-font bg-black">
@@ -50,7 +55,7 @@ function Header() {
             <Link to="/mylist" className="mr-6 hover:text-white">
                   <div> My List </div>
             </Link>
-
+            {admin}
           </nav>
           
           <button class="px-4 py-2 mt-2 text-sm font-semibold text-white bg-[#e80003] transition duration-500 ease-in-out transform bg-transparent rounded-lg dark:text-gray-300 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" onClick={()=> logout()} >

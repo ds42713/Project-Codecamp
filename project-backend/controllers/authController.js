@@ -45,13 +45,14 @@ const login =  async (req,res,next) => {
         }
         const payload = { 
             id: user.id, 
-            namee: user.name
+            name: user.name,
+            role: user.role
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
             expiresIn: 60 * 60 * 24 * 30
         })
-
-        res.status(200).json({token})
+        const { name, role } = user;
+        res.status(200).json({token, user:{name, role}})
         
     } catch(err){
         next(err)
@@ -59,9 +60,9 @@ const login =  async (req,res,next) => {
 }
 
 const getUser = async (req,res,next) => {
-    const { id, name } = req.user;
+    const { id, name, role } = req.user;
     res.status(200).json({
-        user: { id, name 
+        user: { id, name, role 
     }});
 }
 

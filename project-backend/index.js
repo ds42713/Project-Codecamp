@@ -11,7 +11,7 @@ const streamingRoutes = require('./routes/streaming')
 const genreRoutes = require('./routes/genre')
 const commentRoutes = require('./routes/comment');
 const listRoutes = require('./routes/list');
-
+const producerRoutes = require('./routes/producer')
 
 const app = express();
 
@@ -26,6 +26,7 @@ app.use('/streamings', streamingRoutes);
 app.use('/genres', genreRoutes);
 app.use('/comments', commentRoutes);
 app.use('/lists', listRoutes);
+app.use('/producers', producerRoutes);
 
 app.use((req,res) => {
     res.status(404).json({ message: 'resource not found on this server '})

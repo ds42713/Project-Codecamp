@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     model.associate = models =>{
         model.hasMany(models.Movie, { 
             foreignkey: {
-                name:'producerId'
+                name:'ProducerId'
             } 
         })
     

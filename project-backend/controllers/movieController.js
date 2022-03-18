@@ -1,5 +1,7 @@
 const { listen } = require('express/lib/application');
-const {User, Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_genre, Movie_streaming, List} = require('../models')
+const { User, Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Movie_genre, Movie_streaming, List} = require('../models')
+
+const db = require('../models')
 
 const getMovieAll = async (req, res, next) => {
     try {
@@ -75,12 +77,10 @@ const getMovieId = async (req, res, next) => {
 
 const createMovie = async (req, res, next) => {
     try{
-        console.log(req.body)
-        const { movieName, details, rating, type, season, movieImg, movieImgPoster, actorId, genreId, streamingId } = req.body
-        const { producerId } = req.body
         
-        const acId = Number(actorId)
+        const { movieName, details, rating, type, season, movieImg, movieImgPoster, actor , genre, streaming } = req.body
 
+        const {producer} = req.body
         // if (!req.user.type == 'USER' ){
         //     return res.status(404).json({message: 'cannot create movie'})
         // }
@@ -90,10 +90,13 @@ const createMovie = async (req, res, next) => {
         //     return res.status(404).json({message: 'have movie'})
         // }
 
-        console.log("---------------------------")
-        console.log(producerId)
-        console.log(Number(producerId))
-        console.log("---------------------------")
+        console.log(movieName)
+        console.log(details)
+        console.log(producer)
+        console.log(producer)
+        console.log(producer)
+
+        const producerId = await Producer.findOne({where:{ producerName:producer }})
 
         const createMovie = await Movie.create({
             movieName: movieName,
@@ -103,50 +106,58 @@ const createMovie = async (req, res, next) => {
             movieImg: movieImg,
             movieImgPoster: movieImgPoster,
             season: season,
-            producerId: Number(producerId)  // ไม่ขึ้น
+            ProducerId: producerId.id  
         })
 
-        console.log(createMovie)
-        console.log('+++++++++++++++++++++++++++++')
-        console.log(createMovie.dataValues.id)
-        console.log(createMovie.id)
-        console.log('+++++++++++++++++++++++++++++')
-        console.log(typeof(actorId))
+        const arrayGenre = genre.split('/')
+        arrayGenre.pop()
+
+        let arrayGenreId = []
+
+        for (item of arrayGenre ) {
+            const genreid = await Genre.findOne({where:{genreName:item}})
+            arrayGenreId.push(genreid.dataValues.id)
+        }
+        const idGenre = arrayGenreId.map(async (item)=> (
+            await Movie_genre.create({
+                GenreId: Number(item),
+                MovieId: Number(createMovie.id)
+            }) 
+        ))
+
+        const arrayActor = actor.split('/')
+        arrayActor.pop()
+
+        let arrayActorId = []
+
+        for (item of arrayActor ) {
+            const actorid = await Actor.findOne({where:{actorName:item}})
+            arrayActorId.push(actorid.dataValues.id)
+        }
+        const idActor = arrayActorId.map(async (item)=> (
+            await Movie_actor.create({
+                ActorId: Number(item),
+                MovieId: Number(createMovie.id)
+            }) 
+        ))
+
+        const arrayStreaming = streaming.split('/')
+        arrayStreaming.pop()
+
+        let arrayStreamingId = []
+
+        for (item of arrayStreaming ) {
+            const streamingid = await Streaming.findOne({where:{streamingName:item}})
+            arrayStreamingId.push(streamingid.dataValues.id)
+        }
+        const idStreaming = arrayStreamingId.map(async (item)=> (
+            await Movie_streaming.create({
+                StreamingId: Number(item),
+                MovieId: Number(createMovie.id)
+            }) 
+        ))
 
 
-        const idActor = await Movie_actor.create({
-            movieId: createMovie.dataValues.id,
-            actorId: acId
-        }) 
-
-      //  if(actorId){
-       //     const IdActor = actorId.split(',')
-           // for ( id of IdActor) {
-                // const idactor = await Actor.findOne({where:{id: actorId}})
-                // console.log("---------------------------")
-                // console.log(actorId) //1
-                // console.log(createMovie.id) //7++
-
-                // await Movie_actor.create({
-                //     actorId: 1,
-                //     movieId: createMovie.id
-                // })
-           // }
-       // }
-
-        // for ( id of idGenre){
-        //     await Movie_genre.create({
-        //         genre_id: parseInt(id),
-        //         movie_id: createMovie.id
-        //     })
-        // }
-        // for ( id of idStreaming){
-        //     await Movie_streaming.create({
-        //         streaming_id: parseInt(id),
-        //         movie_id: createMovie.id
-        //     })
-        // }
- 
         res.status(201).json({createMovie})
 
     } catch(err) {

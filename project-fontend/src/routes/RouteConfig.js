@@ -7,6 +7,7 @@ import List from '../pages/List'
 import Detail from '../pages/Detail';
 import { AuthContext } from '../contexts/AuthContext'
 import MainLayout from '../components/layouts/MainLayout';
+import CreateMovie from '../pages/CreateMovie';
 
 
 export default function RouteConfig() {
@@ -21,7 +22,7 @@ export default function RouteConfig() {
 				<Route path='mylist' element={<List/>} />
 				<Route path='movie/:movieId' element={<Detail/>} />
 				<Route path='mylist/movie/:movieId' element={<Detail/>} />
-				
+				<Route path='admin/movie' element={<CreateMovie/>} />
 			</Route>
 		) : (
 			<Route path='/'>

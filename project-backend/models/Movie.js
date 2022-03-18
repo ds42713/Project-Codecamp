@@ -2,7 +2,6 @@ module.exports = (sequelize, DataTypes) => {
     const model = sequelize.define('Movie',{
         movieName: {
             type: DataTypes.STRING(200),
-            allowNull: false,
             unique: true
         },
         details: {
@@ -19,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         type: {
             type: DataTypes.STRING(100),
-            allowNull: false,
             defaultValue: 'MOVIE',
             validator: {
               isIn: [['MOVIE','SERIES']]
@@ -39,35 +37,35 @@ module.exports = (sequelize, DataTypes) => {
     model.associate = models =>{
         model.belongsTo(models.Producer,{
             foreignkey: {
-                name:'producerId'
+                name:'ProducerId'
             }
         })
         model.hasMany(models.List, { 
             foreignkey: {
-                name:'movieId'
+                name:'MovieId'
             } 
         })
         model.hasMany(models.Comment, { 
             foreignkey: {
-                name:'movieId'
+                name:'MovieId'
             } 
         })
         model.belongsToMany(models.Actor,{
             through: models.Movie_actor,
             foreignkey: {
-                name:'movieId'
+                name:'MovieId'
             }
         })
         model.belongsToMany(models.Streaming,{
             through: models.Movie_streaming,
             foreignkey: {
-                name:'movieId'
+                name:'MovieId'
             }
         })
         model.belongsToMany(models.Genre,{
             through: models.Movie_genre,
             foreignkey: {
-                name:'movieId'
+                name:'MovieId'
             }
         })
 

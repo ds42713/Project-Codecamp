@@ -32,12 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     model.associate = models =>{
         model.hasMany(models.List,{
             foreignkey: {
-                name:'userId'
+                name:'UserId'
             }
         })
         model.hasMany(models.Comment,{
             foreignkey: {
-                name:'userId'
+                name:'UserId'
             }
         })
     

@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     model.associate = models =>{
         model.belongsTo(models.Movie,{
             foreignkey: {
-                name:'listId'
+                name:'ListId'
             }
         })
         model.belongsTo(models.User,{
             foreignkey: {
-                name:'listId'
+                name:'ListId'
             }
         })
     

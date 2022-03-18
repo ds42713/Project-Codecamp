@@ -23,10 +23,11 @@ const getStreamingId = async (req,res,next) => {
 
 const createStreaming = async (req,res,next) => {
     try{
-        const {streamingName} = req.body
+        const {streamingName,streamingImg} = req.body
 
         const newStreaming = await Streaming.create({
             streamingName: streamingName,
+            streamingImg: streamingImg
         })
         res.status(201).json(newStreaming)
     } catch (err) {

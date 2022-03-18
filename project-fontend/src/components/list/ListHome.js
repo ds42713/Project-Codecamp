@@ -22,7 +22,7 @@ function ListHome() {
 
   return (
     <>
-    <ListList list={list}  />
+      <ListList list={list}  />
     </>
   )
 }

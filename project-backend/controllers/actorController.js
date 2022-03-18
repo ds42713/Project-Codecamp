@@ -8,6 +8,7 @@ const getActorAll = async (req,res,next) => {
         next(err)
     }
 }
+
 const getActorId = async (req,res,next) => {
     try{
         const actorId = Number(req.params.id);
