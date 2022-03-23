@@ -5,6 +5,7 @@ const authenticate = require('../middlewares/authenticate')
 const router = express.Router();
 
 router.post('/', authenticate, commentContollers.createComment);
-router.delete('/', authenticate, commentContollers.deleteComment)
+router.get('/:id', authenticate, commentContollers.getComment);
+router.delete('/:id', authenticate, commentContollers.deleteComment)
 
 module.exports = router;

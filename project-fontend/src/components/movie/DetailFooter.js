@@ -3,36 +3,39 @@ import CommentForm from '../layouts/CommentForm'
 import CommentList from '../layouts/CommentList'
 import axios from '../../config/axios'
 
-
 function DetailFooter({movie, movieId}) {
 
-  
   const [comments, setComments] = useState([])
-
+  const fetchComment = async () => {
+    try{
+      const res = await axios.get(`/comments/${movieId}`)
+      console.log(res.data.comment)
+      setComments(res.data.comment)
+      console.log('---------------------')
+      console.log(comments)
+    } catch(err) {
+      console.log(err)
+    }
+    
+  }
   const createComment = async title => {
     try {
       const res = await axios.post('/comments', {title, movieId: movieId})
       console.log(res.data)
-      setComments(prev => [...prev, res.data])
+      fetchComment()
       console.log(comments)
     } catch (err) {
       console.log(err)
     }
   }
 
-    useEffect(  () => {
-      if (movie.Comments) {
-        setComments(movie.Comments)
-      }
-
-        console.log(movie)
-        console.log(comments)
-
-      }, [movie])
-      
+    useEffect( () => {
+      fetchComment()
+    }, [])
+  
   return (
     <div className='flex flex-col mx-auto items-center justify-center  p-2 m-0'>
-      <CommentList comments={comments} />
+      <CommentList comments={comments} fetchComment={fetchComment} />
       <CommentForm createComment={createComment}/>
     </div>
   )

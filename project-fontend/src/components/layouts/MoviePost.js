@@ -84,7 +84,7 @@ function MoviePost({ setShowModal, movie }) {
   return (
     <>
       <div
-        className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none w-full h-fit "
+        className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none w-full h-fit " 
       >
         <div className="relative my-6 mx-auto w-auto lg:w-9/12 lg:min-h-80 ">
           <div className="relative p-6 flex-auto">
@@ -170,8 +170,8 @@ function MoviePost({ setShowModal, movie }) {
 
 
 
-              <div className="relative w-full h-64 lg:h-max lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block  bg-contain bg-center flex justify-center ">
-                <img className=" h-full xlg:h-max bg-contain bg-center  " src={movie.movieImgPoster ?? defaultImg} alt="banner" />
+              <div className="relative w-full h-96 lg:h-max lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r flex  bg-contain bg-center  justify-center ">
+                <img className=" h-full sm:w-80 bg-contain bg-center bg-red-5002 " src={movie.movieImgPoster ?? defaultImg} alt="banner" />
               </div>
 
 

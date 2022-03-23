@@ -62,7 +62,6 @@ const getMovieId = async (req, res, next) => {
                     }
                 }
             ]
-            
             })
         
         if(!movie){

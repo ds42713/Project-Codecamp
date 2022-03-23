@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from '../../config/axios'
+import AddActor from './AddActor'
+import AddProducer from './AddProducer'
 
 function MovieForm({setLoading}) {
+
+  const [showModalActor, setShowModalActor] = useState(false)
+  const [showModalProducer, setShowModalProducer] = useState(false)
 
   const [movieName, setMoviename] = useState('')//
   const [details, setDetails] = useState('')//
@@ -68,6 +73,7 @@ function MovieForm({setLoading}) {
     }
     setGenreInput('')
   }
+  
 
   const addMovie = async () => {
     try{
@@ -80,17 +86,15 @@ function MovieForm({setLoading}) {
       setLoading(false)
     }
   }
-
   const handleSubmitForm = async e => {
-   
-
     addMovie()
   }
-
+  
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [showModalActor,showModalProducer])
 
+  
   return (
     <div>
       <div class="w-full ">
@@ -170,7 +174,7 @@ function MovieForm({setLoading}) {
                   </datalist>
 
                   <div class="flex items-center justify-center w-full">
-                    <div class="mt-2 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none">
+                    <div class="mt-2 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none" onClick={()=>setShowModalProducer(true)} >
                       Add new producer
                     </div>
                   </div>
@@ -203,7 +207,7 @@ function MovieForm({setLoading}) {
                   </div>   
 
                   <div class="flex items-center justify-center w-full">
-                    <div class="mt-2 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none">
+                    <div class="mt-2 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none" onClick={()=>setShowModalActor(true)} >
                       Add new actor
                     </div>
                   </div>
@@ -274,6 +278,9 @@ function MovieForm({setLoading}) {
           </div>
         </div>
       </div>
+      
+      { showModalActor ? ( <AddActor setShowModalActor={setShowModalActor} /> ) : null }
+      { showModalProducer ? ( <AddProducer setShowModalProducer={setShowModalProducer} /> ) : null }
     </div>
   )
 }

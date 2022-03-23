@@ -7,6 +7,11 @@ const router = express.Router();
 
 router.get('/',userContollers.getActorAll)
 router.get('/:id',userContollers.getActorId)
-router.post('/', userContollers.createActor);
+router.post('/',authenticate, userContollers.createActor);
 
 module.exports = router;
+
+
+
+
+
