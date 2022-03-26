@@ -29,6 +29,7 @@ function RegisterForm() {
     }
   }
 
+
   return (
     <div class="h-screen md:flex">
 
@@ -36,8 +37,7 @@ function RegisterForm() {
         class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
         <div>
           <h1 class="text-white font-bold text-4xl font-sans">จำเก่ง</h1>
-          <p class="text-white mt-1">The most popular peer to peer lending at SEA</p>
-          <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
+          <p class="text-white mt-1">The most movie in the world!!!</p>
         </div>
         <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div class="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -80,7 +80,8 @@ function RegisterForm() {
                 d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                 clip-rule="evenodd" />
             </svg>
-            <input class="pl-2 outline-none border-none" type="password" name="" id="" placeholder="confirm Password"  value={confirmPassword} onChange={e=> setConfirmPassword(e.target.value)}/>
+            <input class="pl-2 outline-none border-none" type="password" name="" id="" placeholder="confirm Password"  value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value)}/>
+            
           </div>
 
 

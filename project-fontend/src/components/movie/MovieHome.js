@@ -8,7 +8,6 @@ function MovieHome() {
     const fetchMovie = async ()=> {
         try{
             const res = await axios.get('/movies')
-            console.log(res.data.movie)
             setMovie(res.data.movie)
         }catch(err){
             console.log(err)

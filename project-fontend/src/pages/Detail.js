@@ -4,6 +4,10 @@ import axios from '../config/axios'
 import defaultImg from '../assets/images/profileImg.png';
 import { AuthContext } from '../contexts/AuthContext';
 import DetailFooter from '../components/movie/DetailFooter';
+import MovieEdit from '../components/layouts/MovieEdit';
+import MovieActorEdit from '../components/layouts/MovieActorEdit';
+import MovieGenreEdit from '../components/layouts/MovieGenreEdit';
+import MovieStreamingEdit from '../components/layouts/MovieStreamingEdit';
 
 function Detail() {
   const { user } = useContext(AuthContext)
@@ -19,13 +23,17 @@ function Detail() {
   const [favorite, setFavorite] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const [isEdit, setIsEdit] = useState(false)
+  const [isEditActor, setIsEditActor] = useState(false)
+  const [isEditGenre, setIsEditGenre] = useState(false)
+  const [isEditStreaming, setIsEditStreaming] = useState(false)
+
   async function fetchMovie() {
     try {
       const res = await axios.get(`/movies/${movieId}`)
-
       setMovie(res.data.movie)
-
       setDetail(res.data.movie.details)
+
       if (res.data.movie.Streamings) {
         setStreaming(res.data.movie.Streamings)
       }
@@ -51,7 +59,6 @@ function Detail() {
     try {
       const res = await axios.post('/lists', { movieId: movieId });
       setFavorite(true)
-
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +68,6 @@ function Detail() {
     try {
       await axios.delete(`/lists/${movieId}`);
       setFavorite(false)
-
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +87,7 @@ function Detail() {
   // อันนี้คือ นำเข้าใน list 
   function ButtonCreateFavorite({createList}) {
     return (
-      <button className='mx-2 border-2 border-red-700 text-black  font-bold uppercase text-sm px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 flex flex-row' onClick={createList}>
+      <button className='mx-2 border-2 hover:bg-red-700 hover:text-white border-red-700 text-black  font-bold uppercase text-sm px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 flex flex-row' onClick={createList}>
         favorite
       </button>
     );
@@ -89,7 +95,7 @@ function Detail() {
   // อันนี้คือ นำออกใน list
   function ButtonDelateFavorite({deleteList}) {
     return (
-      <button  className='mx-2 bg-red-700 border-2 border-red-700 text-white  font-bold uppercase text-sm px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 flex flex-row' onClick={deleteList} >
+      <button  className='mx-2 hover:bg-white hover:text-black bg-red-700 border-2 border-red-700 text-white  font-bold uppercase text-sm px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 flex flex-row' onClick={deleteList} >
         favorite
       </button>
     );
@@ -102,23 +108,65 @@ function Detail() {
     buttonFavorite = <ButtonDelateFavorite key={movie.id} deleteList={deleteList} />
   }
 
+  let adminMovie = []
+  if(user.role == 'ADMIN') {
+    adminMovie = (<button
+    class="py-1 px-4 transition-colors bg-amber-500 border-2 border-amber-500 hover:border-black hover:text-black text-black  rounded-lg hover:bg-white font-bold uppercase	 disabled:opacity-50" onClick={() => setIsEdit(true)}> Edit </button>)
+  }
+
+  let adminActor = []
+  if(user.role == 'ADMIN') {
+    adminActor = (<button
+    class="py-1 px-4 transition-colors bg-amber-500 border-2 border-amber-500 hover:border-black hover:text-black text-black  rounded-lg hover:bg-white font-bold uppercase	 disabled:opacity-50" onClick={() => setIsEditActor(true)}> Edit Actor </button>)
+  }
+
+  let adminGenre = []
+  if(user.role == 'ADMIN') {
+    adminGenre = (<button
+    class="py-1 px-4 transition-colors bg-amber-500 border-2 border-amber-500 hover:border-black hover:text-black text-black  rounded-lg hover:bg-white font-bold uppercase	 disabled:opacity-50" onClick={() => setIsEditGenre(true)}> Edit Genre </button>)
+  }
+
+  let adminStreaming = []
+  if(user.role == 'ADMIN') {
+    adminStreaming = (<button
+    class="py-1 px-4 transition-colors bg-amber-500 border-2 border-amber-500 hover:border-black hover:text-black text-black  rounded-lg hover:bg-white font-bold uppercase	 disabled:opacity-50" onClick={() => setIsEditStreaming(true)}> Edit Streaming </button>)
+  }
 
   useEffect(  () => {
     fetchMovie()
     getList()
-  }, [loading])
+  }, [loading,isEdit,isEditActor,isEditGenre,isEditStreaming])
 
 
   return (
     <div className='bg-white'>
 
-      <section class="text-gray-700 body-font overflow-hidden bg-white">
-        <div class="container px-5 py-24 mx-auto">
+      <div className=' flex justify-center  '> 
+        <div className='mx-4 mt-2'>
+          {adminMovie}
+        </div>
+        <div className='mx-4 mt-2'>
+          {adminActor}
+        </div>
+        <div className='mx-4 mt-2'>
+          {adminGenre}
+        </div>
+        <div className='mx-4 mt-2'>
+          {adminStreaming}
+        </div>
+      </div>
+
+      {isEdit && <MovieEdit movie={movie} producerName={producer} setIsEdit={setIsEdit} fetchMovie={fetchMovie} />}
+      {isEditActor && <MovieActorEdit movie={movie} setIsEditActor={setIsEditActor}/>}
+      {isEditGenre && <MovieGenreEdit movie={movie} setIsEditGenre={setIsEditGenre}/>}
+      {isEditStreaming && <MovieStreamingEdit movie={movie} setIsEditStreaming={setIsEditStreaming}/>}
+      <section class="text-gray-700 body-font overflow-hidden bg-white ">
+        <div class="container px-5 py-14 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src={movie.movieImgPoster ?? defaultImg} />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 class="text-sm title-font text-gray-500 tracking-widest">
-                {producer.producerName ?? defaultText}
+                {producer.producerName ?? defaultText} 
               </h2>
               <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{movie.movieName}</h1>
               <div class="flex mb-4">

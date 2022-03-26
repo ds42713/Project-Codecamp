@@ -58,7 +58,7 @@ function Header() {
             {admin}
           </nav>
           
-          <button class="px-4 py-2 mt-2 text-sm font-semibold text-white bg-[#e80003] transition duration-500 ease-in-out transform bg-transparent rounded-lg dark:text-gray-300 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" onClick={()=> logout()} >
+          <button class="px-4 py-2 mt-2 text-sm font-semibold text-white bg-[#e80003] transition duration-500 ease-in-out transform bg-transparent rounded-lg dark:text-gray-300 md:mt-0 md:ml-4 hover:text-[#e80003]  hover:bg-gray-100 hover:border-[#e80003] " onClick={()=> logout()} >
            Log Out
           </button>
         </div>

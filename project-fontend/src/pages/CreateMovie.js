@@ -6,14 +6,13 @@ import { AuthContext } from '../contexts/AuthContext'
 function CreateMovie() {
 
   const [loading, setLoading] = useState(false);
-
   const { logout, user } = useContext(AuthContext);
+
   useEffect(() => {
     console.log(user)
     if(user.role == 'USER') {
       console.log("admin")
     }
-
   }, [])
 
   return (

@@ -80,20 +80,14 @@ const createMovie = async (req, res, next) => {
         const { movieName, details, rating, type, season, movieImg, movieImgPoster, actor , genre, streaming } = req.body
 
         const {producer} = req.body
-        // if (!req.user.type == 'USER' ){
-        //     return res.status(404).json({message: 'cannot create movie'})
-        // }
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
 
-        // const movie = await Movie.findOne({where:{ movieName: movieName}})
-        // if(movie){
-        //     return res.status(404).json({message: 'have movie'})
-        // }
-
-        console.log(movieName)
-        console.log(details)
-        console.log(producer)
-        console.log(producer)
-        console.log(producer)
+        const movie = await Movie.findOne({where:{ movieName: movieName}})
+        if(movie){
+            return res.status(404).json({message: 'have movie'})
+        }
 
         const producerId = await Producer.findOne({where:{ producerName:producer }})
 
@@ -164,10 +158,142 @@ const createMovie = async (req, res, next) => {
     }
 }
 
+const updateMovie = async (req, res, next) => {
+    try{
+        const { movieName, details, rating, type, season, movieImg, movieImgPoster } = req.body
+
+        const {producer} = req.body
+        const movieId = Number(req.params.id);
+
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
+
+        const producerId = await Producer.findOne({where:{ producerName:producer }})
+
+        const movie = await Movie.findOne({where:{id:movieId}})
+        if(movie) {
+            await movie.update({
+                movieName: movieName,
+                details: details,
+                rating: rating,
+                type: type,
+                movieImg: movieImg,
+                movieImgPoster: movieImgPoster,
+                season: season,
+                ProducerId: producerId.id 
+            })
+        }
+        
+        res.status(201).json({movie})
+
+    } catch(err) {
+        next(err)
+    }
+}
+
+const updateMovieActor = async (req, res, next) => {
+    try {
+        const { actor } = req.body
+        const movieId = Number(req.params.id);
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
+        const deleteMovieActor = await Movie_actor.destroy({where:{MovieId:movieId}})
+
+        const arrayActor = actor.split('/')
+        arrayActor.pop()
+
+        let arrayActorId = []
+
+        for (item of arrayActor ) {
+            const actorid = await Actor.findOne({where:{actorName:item}})
+            arrayActorId.push(actorid.dataValues.id)
+        }
+        const idActor = arrayActorId.map(async (item)=> (
+            await Movie_actor.create({
+                ActorId: Number(item),
+                MovieId: movieId
+            }) 
+        ))
+        res.status(201).json({message: "actor done"})
+    } catch(err) {
+        next(err)
+    }
+}
+
+const updateMovieGenre = async (req, res, next) => {
+    try {
+        const { genre } = req.body
+        const movieId = Number(req.params.id);
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
+        const deleteMovieGenre = await Movie_genre.destroy({where:{MovieId:movieId}})
+
+        const arrayGenre = genre.split('/')
+        arrayGenre.pop()
+
+        let arrayGenreId = []
+
+        for (item of arrayGenre ) {
+            const genreid = await Genre.findOne({where:{genreName:item}})
+            arrayGenreId.push(genreid.dataValues.id)
+        }
+        const idGenre = arrayGenreId.map(async (item)=> (
+            await Movie_genre.create({
+                GenreId: Number(item),
+                MovieId: movieId
+            }) 
+        ))
+        res.status(201).json({message: "genre done"})
+    } catch(err) {
+        next(err)
+    }
+}
+
+const updateMovieStreaming = async (req, res, next) => {
+    try {
+        const { streaming } = req.body
+        const movieId = Number(req.params.id);
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
+        const deleteMovieStreaming = await Movie_streaming.destroy({where:{MovieId:movieId}})
+
+        const arrayStreaming = streaming.split('/')
+        arrayStreaming.pop()
+
+        let arrayStreamingId = []
+
+        for (item of arrayStreaming ) {
+            const streamingid = await Streaming.findOne({where:{streamingName:item}})
+            arrayStreamingId.push(streamingid.dataValues.id)
+        }
+        const idStreaming = arrayStreamingId.map(async (item)=> (
+            await Movie_streaming.create({
+                StreamingId: Number(item),
+                MovieId: movieId
+            }) 
+        ))
+
+        res.status(201).json({message: "streaming done"})
+    } catch(err) {
+        next(err)
+    }
+}
+
+
+
 module.exports = {
+
     getMovieAll,
     getMovieId,
     createMovie,
+    updateMovie,
+    updateMovieActor,
+    updateMovieGenre,
+    updateMovieStreaming
     
 };
 

@@ -3,7 +3,9 @@ const { User, Movie, Genre, Streaming, Producer, Actor, Comment, Movie_actor, Mo
 const createProducer = async (req,res,next) => {
     try{
         const { producerName } = req.body
-
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
         const newProducer = await Producer.create({
             producerName: producerName,
         })

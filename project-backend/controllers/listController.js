@@ -56,13 +56,10 @@ const getListID = async (req, res, next) => {
 const deleteList = async (req,res,next) => {
     try{
         const { movieId } = req.params
-        console.log(movieId)
-        console.log(req.user.id)
         const list = await List.findOne( {where: { 
             MovieId: movieId,
             UserId: req.user.id
         }})
-        console.log(list)
         if(!list) {
             return res.status(400).json({message: 'list not found'})
         }

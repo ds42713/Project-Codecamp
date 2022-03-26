@@ -3,7 +3,6 @@ const {Comment, Movie, User } = require('../models')
 
 const getComment = async (req,res,next) => {
     try {
-        console.log('dasdasd')
         const movieId = Number(req.params.id)
         const comment = await Comment.findAll({
             where:{ MovieId: movieId },
@@ -12,8 +11,6 @@ const getComment = async (req,res,next) => {
                     attributes: ['name']
             }
         })
-        console.log(comment)
-        
         res.status(200).json({comment})
     } catch(err) {
         next(err)
@@ -48,10 +45,6 @@ const createComment = async (req,res) => {
 const deleteComment = async (req,res,next) => {
     try{
         const { id } = req.params
-        console.log('--------------')
-        console.log(id)
-        console.log('--------------')
-        console.log(req.params)
         const comment = await Comment.findOne( {where: { id: id }})
         console.log(comment)
         if(!comment) {
@@ -61,7 +54,6 @@ const deleteComment = async (req,res,next) => {
         if(req.user.id !== comment.UserId){
             return res.status(403).json({message: 'can not delete this comment'})
         }
-
         await comment.destroy()
         res.status(204).json()
     } catch(err){

@@ -24,7 +24,9 @@ const getGenreId = async (req,res) => {
 const createGenre = async (req,res,next) => {
     try{
         const {genreName} = req.body
-
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
         const newGenre = await Genre.create({
             genreName: genreName,
         })

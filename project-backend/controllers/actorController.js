@@ -25,10 +25,13 @@ const getActorId = async (req,res,next) => {
 
 const createActor = async (req,res,next) => {
     try {
-        const {actorName} = req.body
-
+        const {actorName,actorImg} = req.body
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
         const newActor = await Actor.create({
             actorName: actorName,
+            actorImg: actorImg
         })
         res.status(201).json(newActor)
     } catch(err){

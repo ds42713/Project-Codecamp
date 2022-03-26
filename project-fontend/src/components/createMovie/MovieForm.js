@@ -53,39 +53,35 @@ function MovieForm({setLoading}) {
     }
   }
   const addActor = () => {
-    console.log('clink')
     if (actorInput) {
       setActor(actor + actorInput + '/')
     }
     setActorInput('')
   }
   const addStreaming = () => {
-    console.log('clink')
     if (streamingInput) {
       setStreaming(streaming + streamingInput + '/')
     }
     setStreamingInput('')
   }
   const addGenre = () => {
-    console.log('clink')
     if (genreInput) {
       setGenre(genre + genreInput + '/')
     }
     setGenreInput('')
   }
   
-
   const addMovie = async () => {
     try{
       setLoading(true)
       await axios.post('/movies', {movieName,details,rating,type,season,movieImg,movieImgPoster,producer,actor,genre,streaming})
-      console.log('Add done')
     }catch(err) {
       console.log(err)
     } finally{
       setLoading(false)
     }
   }
+
   const handleSubmitForm = async e => {
     addMovie()
   }
@@ -93,14 +89,13 @@ function MovieForm({setLoading}) {
   useEffect(() => {
     fetchData()
   }, [showModalActor,showModalProducer])
-
-  
+ 
   return (
     <div>
       <div class="w-full ">
         <div class="bg-gradient-to-b h-96"></div>
         <div class="max-w-5xl my-2 mx-auto px-6 sm:px-6 lg:px-8 mb-12">
-          <div class="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-72">
+          <div class="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-96">
             <p class="text-3xl font-bold leading-7 text-center text-white">Add Movie</p>
 
             <form  onSubmit={handleSubmitForm}>
@@ -270,7 +265,7 @@ function MovieForm({setLoading}) {
 
               <div class="flex items-center justify-center w-full">
                 <button class="mt-9 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none">
-                  summit
+                  Add
                 </button>
               </div>
 

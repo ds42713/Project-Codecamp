@@ -4,8 +4,8 @@ const genreContollers = require('../controllers/genreController');
 
 const authenticate = require('../middlewares/authenticate')
 
-router.get('/', genreContollers.getGenreAll)
-router.get('/:id', genreContollers.getGenreId)
+router.get('/', authenticate, genreContollers.getGenreAll)
+router.get('/:id', authenticate, genreContollers.getGenreId)
 router.post('/', authenticate, genreContollers.createGenre);
 
 module.exports = router;

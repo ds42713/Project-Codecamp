@@ -24,7 +24,9 @@ const getStreamingId = async (req,res,next) => {
 const createStreaming = async (req,res,next) => {
     try{
         const {streamingName,streamingImg} = req.body
-
+        if (!req.user.type == 'ADMID' ){
+            return res.status(404).json({message: 'cannot create movie'})
+        }
         const newStreaming = await Streaming.create({
             streamingName: streamingName,
             streamingImg: streamingImg

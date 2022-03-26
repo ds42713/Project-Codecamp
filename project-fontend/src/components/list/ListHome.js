@@ -4,12 +4,11 @@ import axios from '../../config/axios'
 
 function ListHome() {
     const [list, setList] = useState([])
+
     const fetchList = async () => {
         try{
             const res = await axios.get('/lists')
-            console.log(res.data.movie)
             setList(res.data.movie)
-            
         }catch(err){
             console.log(err)
         }
@@ -18,7 +17,6 @@ function ListHome() {
     useEffect(()=> {
         fetchList()
     }, [])
-
 
   return (
     <>

@@ -4,11 +4,13 @@ import axios from '../../config/axios'
 function AddActor({setShowModalActor}) {
 
   const [actorName, setActorName] = useState("")
+  const [actorImg, setActorImg] = useState("")
+
   const addActor = async () => {
     try{
-      await axios.post('/actors', {actorName})
+      await axios.post('/actors', {actorName,actorImg})
       setActorName("")
-
+      setActorImg("")
     } catch(err) {
       console.log(err)
     } 
@@ -20,7 +22,7 @@ function AddActor({setShowModalActor}) {
 
   return (
     <div >
-      <div className="z-50 fixed w-full flex justify-center inset-0 ">
+      <div className="z-50 fixed w-full flex justify-center inset-0  ">
         <div 
         onClick={() => setShowModalActor(false)}
         className="w-full h-full  z-0 absolute inset-0" />
@@ -38,9 +40,12 @@ function AddActor({setShowModalActor}) {
               </div>
               <div className="px-4 md:px-10 pt-6 md:pt-12 md:pb-4 pb-7">
 
-                <form className="mt-2">
-                  <div className="flex items-center space-x-9">
+                <form className="">
+                  <div className=" items-center ">
+
                     <input placeholder="Actor Name" className="w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200" value={actorName} onChange={e=>setActorName(e.target.value)} />
+
+                    <input placeholder="Actor Image" className="mt-4 w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200" value={actorImg} onChange={e=>setActorImg(e.target.value)} />
 
                   </div>
 

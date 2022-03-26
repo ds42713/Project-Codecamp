@@ -6,13 +6,11 @@ import axios from '../../config/axios'
 function DetailFooter({movie, movieId}) {
 
   const [comments, setComments] = useState([])
+  
   const fetchComment = async () => {
     try{
       const res = await axios.get(`/comments/${movieId}`)
-      console.log(res.data.comment)
       setComments(res.data.comment)
-      console.log('---------------------')
-      console.log(comments)
     } catch(err) {
       console.log(err)
     }
@@ -21,9 +19,7 @@ function DetailFooter({movie, movieId}) {
   const createComment = async title => {
     try {
       const res = await axios.post('/comments', {title, movieId: movieId})
-      console.log(res.data)
       fetchComment()
-      console.log(comments)
     } catch (err) {
       console.log(err)
     }

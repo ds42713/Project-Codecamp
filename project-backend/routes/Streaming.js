@@ -4,8 +4,8 @@ const streamingContollers = require('../controllers/streamingController');
 
 const authenticate = require('../middlewares/authenticate')
 
-router.get('/', streamingContollers.getStreamingAll)
-router.get('/:id', streamingContollers.getStreamingId)
+router.get('/', authenticate, streamingContollers.getStreamingAll)
+router.get('/:id', authenticate, streamingContollers.getStreamingId)
 router.post('/', authenticate, streamingContollers.createStreaming);
 
 module.exports = router;
