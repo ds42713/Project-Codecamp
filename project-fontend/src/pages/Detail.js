@@ -22,6 +22,7 @@ function Detail() {
   const defaultText = ''
   const [favorite, setFavorite] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [season, setSeason] = useState(false)
 
   const [isEdit, setIsEdit] = useState(false)
   const [isEditActor, setIsEditActor] = useState(false)
@@ -33,7 +34,7 @@ function Detail() {
       const res = await axios.get(`/movies/${movieId}`)
       setMovie(res.data.movie)
       setDetail(res.data.movie.details)
-
+      console.log(res.data.movie)
       if (res.data.movie.Streamings) {
         setStreaming(res.data.movie.Streamings)
       }
@@ -48,6 +49,9 @@ function Detail() {
       }
       if (res.data.movie.Comments) {
         setComments(res.data.movie.Comments)
+      }
+      if (res.data.movie.season) {
+        setSeason(res.data.movie.season)
       }
       setLoading(true)
     } catch (err) {
@@ -101,6 +105,11 @@ function Detail() {
     );
   }
 
+  let seasonUi
+  if (season != "0"){
+    seasonUi = <> (season {season}) </>
+  } 
+
   let buttonFavorite
   if (!favorite) {
     buttonFavorite = <ButtonCreateFavorite key={movie.id} createList={createList} />
@@ -139,7 +148,7 @@ function Detail() {
 
 
   return (
-    <div className='bg-white'>
+    <div className=''>
 
       <div className=' flex justify-center  '> 
         <div className='mx-4 mt-2'>
@@ -160,13 +169,13 @@ function Detail() {
       {isEditActor && <MovieActorEdit movie={movie} setIsEditActor={setIsEditActor}/>}
       {isEditGenre && <MovieGenreEdit movie={movie} setIsEditGenre={setIsEditGenre}/>}
       {isEditStreaming && <MovieStreamingEdit movie={movie} setIsEditStreaming={setIsEditStreaming}/>}
-      <section class="text-gray-700 body-font overflow-hidden bg-white ">
+      <section class="text-gray-700 body-font overflow-hidden  ">
         <div class="container px-5 py-14 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src={movie.movieImgPoster ?? defaultImg} />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 class="text-sm title-font text-gray-500 tracking-widest">
-                {producer.producerName ?? defaultText} 
+                {producer.producerName ?? defaultText} {seasonUi}
               </h2>
               <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{movie.movieName}</h1>
               <div class="flex mb-4">

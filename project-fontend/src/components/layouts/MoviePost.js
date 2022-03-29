@@ -63,6 +63,18 @@ function MoviePost({ setShowModal, movie }) {
     );
   }
 
+
+  let seasonUi
+  if (movie.season != "0"){
+    seasonUi = <div className="text-indigo-700 dark:text-indigo-600 hover:text-indigo-600   cursor-pointer">
+        <div className=" border-2 border-red-700 text-white  font-bold uppercase text-sm px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex flex-row cursor-default " >
+
+        season {movie.season}
+
+          </div>
+    </div>
+  } 
+
   let buttonFavorite 
   if (!favorite) {
     buttonFavorite = <ButtonCreateFavorite key={movie.id} createList={createList} />
@@ -92,7 +104,7 @@ function MoviePost({ setShowModal, movie }) {
               <div className="w-full lg:w-1/2 flex flex-col justify-between ">
 
                 <div className="pt-4 lg:pt-6 pb-4 lg:pb-6 pl-4 lg:pl-6 pr-4 lg:pr-6">
-                  <h2 className="text-gray-800 dark:text-gray-100 mt-4 mb-2 tracking-normal text-xl lg:text-2xl font-bold">{movie.movieName}</h2>
+                  <h2 className="text-gray-800 dark:text-gray-100 mt-4 mb-2 tracking-normal text-xl lg:text-2xl font-bold">{movie.movieName} </h2>
                   <p className="mb-6 font-normal text-gray-600 dark:text-gray-400 text-sm tracking-normal ">{(movie.details).slice(0, 500)}</p>
                 </div>
 
@@ -134,6 +146,8 @@ function MoviePost({ setShowModal, movie }) {
 
                         </div>
                       </div>
+                      {seasonUi}
+
                     </div>
 
                     <div className="flex items-center ">
