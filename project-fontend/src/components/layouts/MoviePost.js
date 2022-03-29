@@ -111,12 +111,11 @@ function MoviePost({ setShowModal, movie }) {
                 <div className='w-full pb-0  flex-col justify-between '>
                   <div className="grid grid-cols-2 p-4 ">
 
-                    <div className="flex justify-start mt-4 ">
+                    <div className="flex justify-start mt-4">
                       {streaming.map(streaming => (
                         <>
-                          <img src={streaming.streamingImg ?? ''} className="w-6 h-6" />
-                          <p className="text-gray-600 dark:text-gray-400 mx-2 ">{streaming.streamingName}</p>
-
+                          <img src={streaming.streamingImg ?? ''} className="w-6 h-6 mx-1" />
+                          
                         </>
                       ))}
                     </div>
