@@ -148,7 +148,7 @@ function Detail() {
 
 
   return (
-    <div className=''>
+    <div className='bg-white'>
 
       <div className=' flex justify-center  '> 
         <div className='mx-4 mt-2'>
@@ -169,7 +169,7 @@ function Detail() {
       {isEditActor && <MovieActorEdit movie={movie} setIsEditActor={setIsEditActor}/>}
       {isEditGenre && <MovieGenreEdit movie={movie} setIsEditGenre={setIsEditGenre}/>}
       {isEditStreaming && <MovieStreamingEdit movie={movie} setIsEditStreaming={setIsEditStreaming}/>}
-      <section class="text-gray-700 body-font overflow-hidden  ">
+      <section class="text-gray-700 body-font overflow-hidden bg-white ">
         <div class="container px-5 py-14 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src={movie.movieImgPoster ?? defaultImg} />
