@@ -20,7 +20,7 @@ export default function MovieItem({ movie }) {
 
             </div>
 
-            {showModal ? (  <MoviePost setShowModal={setShowModal} movie={movie} key={movie.id} /> ) : null}
+            { showModal ? (  <MoviePost setShowModal={setShowModal} movie={movie} key={movie.id} /> ) : null}
         </>
     )
 

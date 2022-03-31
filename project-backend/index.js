@@ -21,12 +21,14 @@ app.use(express.urlencoded({ extended: false })); // จำเป็นต้อ
 
 app.use('/users', userRoutes);
 app.use('/movies', movieRoutes);
-app.use('/actors', actorRoutes);
-app.use('/streamings', streamingRoutes);
-app.use('/genres', genreRoutes);
-app.use('/comments', commentRoutes);
 app.use('/lists', listRoutes);
+
+app.use('/comments', commentRoutes);
+
+app.use('/genres', genreRoutes);
+app.use('/actors', actorRoutes);
 app.use('/producers', producerRoutes);
+app.use('/streamings', streamingRoutes);
 
 app.use((req,res) => {
     res.status(404).json({ message: 'resource not found on this server '})

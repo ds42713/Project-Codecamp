@@ -68,9 +68,7 @@ function MoviePost({ setShowModal, movie }) {
   if (movie.season != "0"){
     seasonUi = <div className="text-indigo-700 dark:text-indigo-600 hover:text-indigo-600   cursor-pointer">
         <div className=" border-2 border-red-700 text-white  font-bold uppercase text-sm px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex flex-row cursor-default " >
-
         season {movie.season}
-
           </div>
     </div>
   } 
