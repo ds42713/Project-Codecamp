@@ -92,39 +92,39 @@ function MovieForm({setLoading}) {
  
   return (
     <div>
-      <div class="w-full ">
-        <div class="bg-gradient-to-b h-96"></div>
-        <div class="max-w-5xl my-2 mx-auto px-6 sm:px-6 lg:px-8 mb-12">
-          <div class="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-96">
-            <p class="text-3xl font-bold leading-7 text-center text-white">Add Movie</p>
+      <div className="w-full ">
+        <div className="bg-gradient-to-b h-96"></div>
+        <div className="max-w-5xl my-2 mx-auto px-6 sm:px-6 lg:px-8 mb-12">
+          <div className="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-96">
+            <p className="text-3xl font-bold leading-7 text-center text-white">Add Movie</p>
 
             <form  onSubmit={handleSubmitForm}>
 
-              <div class="md:flex items-center mt-12">
-                <div class="w-full md:w-1/2 flex flex-col">
-                  <label class="font-semibold leading-none text-gray-300">Movie Name</label>
-                  <input type="text" class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+              <div className="md:flex items-center mt-12">
+                <div className="w-full md:w-1/2 flex flex-col">
+                  <label className="font-semibold leading-none text-gray-300">Movie Name</label>
+                  <input type="text" className="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
                     value={movieName}
                     onChange={e => setMoviename(e.target.value)} />
                 </div>
-                <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
-                  <label class="font-semibold leading-none text-gray-300">rating </label>
+                <div className="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                  <label className="font-semibold leading-none text-gray-300">rating </label>
                   <select className='leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded' onChange={e => setRating(e.target.value)} >
                     { ratingOption }
                   </select>
                 </div>
               </div>
 
-              <div class="md:flex items-center mt-12">
-                <div class="w-full md:w-1/2 flex flex-col">
-                  <label class="font-semibold leading-none text-gray-300">season (0 = movie)</label>
-                  <input type="text" class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+              <div className="md:flex items-center mt-12">
+                <div className="w-full md:w-1/2 flex flex-col">
+                  <label className="font-semibold leading-none text-gray-300">season (0 = movie)</label>
+                  <input type="text" className="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
                     value={season}
                     onChange={e => setSeason(e.target.value)} />
                 </div>
 
-                <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
-                  <label class="font-semibold leading-none text-gray-300">type</label>
+                <div className="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                  <label className="font-semibold leading-none text-gray-300">type</label>
 
                   <select className='leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded' onChange={e => setType(e.target.value)} >
                     <option value='MOVIE' > Movie </option>
@@ -134,32 +134,32 @@ function MovieForm({setLoading}) {
                 </div>
               </div>
 
-              <div class="md:flex items-center mt-12">
-                <div class="w-full md:w-1/2 flex flex-col">
-                  <label class="font-semibold leading-none text-gray-300">movie Image</label>
-                  <input type="text" class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+              <div className="md:flex items-center mt-12">
+                <div className="w-full md:w-1/2 flex flex-col">
+                  <label className="font-semibold leading-none text-gray-300">movie Image</label>
+                  <input type="text" className="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
                     value={movieImg}
                     onChange={e => setMovieImg(e.target.value)} />
                 </div>
-                <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
-                  <label class="font-semibold leading-none text-gray-300">Poster Image</label>
-                  <input type="text" class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
+                <div className="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                  <label className="font-semibold leading-none text-gray-300">Poster Image</label>
+                  <input type="text" className="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded"
                   value={movieImgPoster}
                   onChange={e => setMovieImgPoster(e.target.value)}
                    />
                 </div>
               </div>
               
-              <div class="w-full flex flex-col mt-8">
-                <label class="font-semibold leading-none text-gray-300">details</label>
-                <textarea type="text" class="h-40 text-base leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-800 border-0 rounded" value={details} onChange={e => setDetails(e.target.value)}></textarea>
+              <div className="w-full flex flex-col mt-8">
+                <label className="font-semibold leading-none text-gray-300">details</label>
+                <textarea type="text" className="h-40 text-base leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-800 border-0 rounded" value={details} onChange={e => setDetails(e.target.value)}></textarea>
               </div>
              
 
-              <div class="md:flex items-center mt-8">
-                <div class="w-full flex flex-col">
+              <div className="md:flex items-center mt-8">
+                <div className="w-full flex flex-col">
 
-                  <label class="font-semibold leading-none text-gray-300">Producer = {producer}</label>
+                  <label className="font-semibold leading-none text-gray-300">Producer = {producer}</label>
                   <input list="producers" className='leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded w-full' 
                   onChange={e => setProducer(e.target.value)} />
                   <datalist id="producers">
@@ -168,8 +168,8 @@ function MovieForm({setLoading}) {
                     ))}
                   </datalist>
 
-                  <div class="flex items-center justify-center w-full">
-                    <div class="mt-2 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none" onClick={()=>setShowModalProducer(true)} >
+                  <div className="flex items-center justify-center w-full">
+                    <div className="mt-2 font-semibold leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none" onClick={()=>setShowModalProducer(true)} >
                       Add new producer
                     </div>
                   </div>
